@@ -56,7 +56,7 @@ loadScript(
 
 const URL = "https://teachablemachine.withgoogle.com/models/gEWbo6qt0/";
 
-let model, webcam, labelContainer, maxPredictions;
+// let model, webcam, labelContainer, maxPredictions;
 
 // Load the image model and setup the webcam
 export default {
@@ -64,6 +64,12 @@ export default {
     return{
       detected:'',
       isView:false,
+      url:'',
+      modelUrl:'',
+      metadataUrl:'',
+      webcam:'',
+      labelContainer:'',
+      maxPredictions:''
     }
   },
   created() {
@@ -86,42 +92,46 @@ export default {
     },
     async init() {
       alert('Rendering the camera...')
-      const modelURL = URL + "model.json";
-      const metadataURL = URL + "metadata.json";
+      this.url = "https://teachablemachine.withgoogle.com/models/gEWbo6qt0/";
+      this.modelUrl = this.url + "model.json";
+      this.metadataUrl = this.url + "metadata.json";
 
       // load the model and metadata
       // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
       // or files from your local hard drive
       // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-      model = await tmImage.load(modelURL, metadataURL);
-      maxPredictions = model.getTotalClasses();
+      this.model = await tmImage.load(this.modelUrl, this.metadataUrl);
+
+      this.maxPredictions = this.model.getTotalClasses();
 
       const flip = true; // whether to flip the webcam
-      webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-      await webcam.setup(); // request access to the webcam
-      await webcam.play();
+      this.webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+      await this.webcam.setup(); // request access to the webcam
+      await this.webcam.play();
       window.requestAnimationFrame(this.loop);
          this.isView = true;
 
       // append elements to the DOM
-      document.getElementById("webcam-container").appendChild(webcam.canvas);
-      labelContainer = document.getElementById("label-container");
-      for (let i = 0; i < maxPredictions; i++) {
+      document.getElementById("webcam-container").appendChild(this.webcam.canvas);
+      this.labelContainer = document.getElementById("label-container");
+      for (let i = 0; i < this.maxPredictions; i++) {
         // and class labels
-        labelContainer.appendChild(document.createElement("div"));
+        this.labelContainer.appendChild(document.createElement("div"));
       }
 
     },
 
     async loop() {
-      webcam.update(); // update the webcam frame
+      this.webcam.update(); // update the webcam frame
       await this.predict();
       window.requestAnimationFrame(this.loop);
     },
 
     async predict() {
-      const prediction = await model.predict(webcam.canvas);
-      for (let i = 0; i < maxPredictions; i++) {
+
+      //  let model = await tmImage.load(modelURL, metadataURL);
+      const prediction = await this.model.predict(this.webcam.canvas);
+      for (let i = 0; i < this.maxPredictions; i++) {
         if((prediction[i].probability.toFixed(2)*100)>80){
            const classPrediction =
           prediction[i].className;
