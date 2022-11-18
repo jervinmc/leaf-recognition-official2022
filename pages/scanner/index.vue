@@ -22,7 +22,7 @@
           </v-btn>
         </div>
       </v-col>
-      <v-col align="center" cols="6" v-if="!$vuetify.breakpoint.xs">
+      <v-col align="center" cols="6">
         <v-img
           src="/images/vector.jpg"
           height="400"
