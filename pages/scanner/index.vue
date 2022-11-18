@@ -45,13 +45,13 @@
 </template>
 
 <script type="text/javascript">
-import '@tensorflow/tfjs'
-
 import Vue from "vue";
+import * as tmImage from '@teachablemachine/image'
+
 import { loadScript } from "vue-plugin-load-script";
-loadScript(
-  "https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"
-);
+// loadScript(
+//   "https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"
+// );
 loadScript(
   "https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
 );
@@ -76,10 +76,10 @@ export default {
   },
   created() {
     let ckeditor = document.createElement("script");
-    ckeditor.setAttribute(
-      "src",
-      "//cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"
-    );
+    // ckeditor.setAttribute(
+    //   "src",
+    //   "//cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"
+    // );
     document.head.appendChild(ckeditor);
     ckeditor.setAttribute(
       "src",
@@ -102,7 +102,7 @@ export default {
       // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
       // or files from your local hard drive
       // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-      this.model = Object.freeze(await tmImage.load(this.modelUrl, this.metadataUrl));
+      this.model = await tmImage.load(this.modelUrl, this.metadataUrl);
 
       this.maxPredictions = this.model.getTotalClasses();
 
