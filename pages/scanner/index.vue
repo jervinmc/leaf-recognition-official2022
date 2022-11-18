@@ -1,8 +1,11 @@
 <template>
   <div>
-    <v-row class="px-10">
+    <v-row class="px-10" >
       <v-col
-        cols="6"
+        cols="12"
+        md="6"
+        lg="6"
+        xl="6"
         align-self="center"
         class="px-10 bounce"
         transition="slide-x-transition"
@@ -19,7 +22,7 @@
           </v-btn>
         </div>
       </v-col>
-      <v-col align="center" cols="6">
+      <v-col align="center" cols="6" v-if="!$vuetify.breakpoint.xs">
         <v-img
           src="/images/vector.jpg"
           height="400"
@@ -34,6 +37,9 @@
     <div>
       {{detected}}
     </div>
+    </div>
+    <div align="center" v-if="isView">
+      <v-btn @click="recommendation" outlined>View Recommendation</v-btn>
     </div>
   </div>
 </template>
@@ -56,7 +62,8 @@ let model, webcam, labelContainer, maxPredictions;
 export default {
   data(){
     return{
-      detected:''
+      detected:'',
+      isView:false,
     }
   },
   created() {
@@ -71,10 +78,14 @@ export default {
       "//cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
     );
     document.head.appendChild(ckeditor);
+ 
   },
   methods: {
+    recommendation(){
+      location=`/recommendation?disease=${this.detected}`
+    },
     async init() {
-      alert();
+      alert('Rendering the camera...')
       const modelURL = URL + "model.json";
       const metadataURL = URL + "metadata.json";
 
@@ -90,6 +101,7 @@ export default {
       await webcam.setup(); // request access to the webcam
       await webcam.play();
       window.requestAnimationFrame(this.loop);
+         this.isView = true;
 
       // append elements to the DOM
       document.getElementById("webcam-container").appendChild(webcam.canvas);
@@ -112,7 +124,8 @@ export default {
       for (let i = 0; i < maxPredictions; i++) {
         if((prediction[i].probability.toFixed(2)*100)>80){
            const classPrediction =
-          prediction[i].className + ": " + (prediction[i].probability.toFixed(2)*100);
+          prediction[i].className;
+          // + ": " + (prediction[i].probability.toFixed(2)*100
         // labelContainer.childNodes[i].innerHTML = classPrediction;
         
         this.detected = classPrediction;

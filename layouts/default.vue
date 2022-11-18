@@ -152,7 +152,7 @@
          
         </v-card-text>
 
-        <v-card-text class="black--text pt-0 text-h3 secondary--text pa-5">
+        <v-card-text class="black--text pt-0 text-h4 secondary--text pa-5">
        A healthy plant is one that adapts best to the situation in which it finds itself. There is no objective measure in this.
        <div>
          ~Monty Don
