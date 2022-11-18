@@ -45,6 +45,8 @@
 </template>
 
 <script type="text/javascript">
+import '@tensorflow/tfjs'
+
 import Vue from "vue";
 import { loadScript } from "vue-plugin-load-script";
 loadScript(
