@@ -92,7 +92,8 @@ export default {
     },
     async init() {
       alert('Rendering the camera...')
-      this.url = "https://teachablemachine.withgoogle.com/models/gEWbo6qt0/";
+     try {
+         this.url = "https://teachablemachine.withgoogle.com/models/gEWbo6qt0/";
       this.modelUrl = this.url + "model.json";
       this.metadataUrl = this.url + "metadata.json";
 
@@ -118,6 +119,9 @@ export default {
         // and class labels
         this.labelContainer.appendChild(document.createElement("div"));
       }
+     } catch (error) {
+        this.init()
+     }
 
     },
 
