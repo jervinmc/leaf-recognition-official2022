@@ -92,8 +92,7 @@ export default {
     },
     async init() {
       alert('Rendering the camera...')
-     try {
-         this.url = "https://teachablemachine.withgoogle.com/models/gEWbo6qt0/";
+      this.url = "https://teachablemachine.withgoogle.com/models/gEWbo6qt0/";
       this.modelUrl = this.url + "model.json";
       this.metadataUrl = this.url + "metadata.json";
 
@@ -101,7 +100,7 @@ export default {
       // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
       // or files from your local hard drive
       // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-      this.model = await tmImage.load(this.modelUrl, this.metadataUrl);
+      this.model = Object.freeze(await tmImage.load(this.modelUrl, this.metadataUrl));
 
       this.maxPredictions = this.model.getTotalClasses();
 
@@ -119,9 +118,6 @@ export default {
         // and class labels
         this.labelContainer.appendChild(document.createElement("div"));
       }
-     } catch (error) {
-        this.init()
-     }
 
     },
 
