@@ -10,7 +10,7 @@
         class="px-10 bounce"
         transition="slide-x-transition"
       >
-        <div class="text-h4 secondary--text">
+                 <div :class="!$vuetify.breakpoint.xs ? 'text-h4 secondary--text' : 'text-h6 secondary--text'">
           <b>LET'S ROOT FOR EACH OTHER AND WATCH EACH OTHER GROW.</b>
         </div>
         <div class="my-10 black--text">

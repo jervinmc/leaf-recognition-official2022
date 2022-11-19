@@ -18,19 +18,8 @@
 
             <v-card-subtitle> {{ n.description }} </v-card-subtitle>
 
-            <v-card-actions>
-              <!-- <v-btn color="orange lighten-2" text> Explore </v-btn> -->
 
-              <v-spacer></v-spacer>
-
-              <v-btn icon @click="show = !show">
-                <v-icon>{{
-                  show ? "mdi-chevron-up" : "mdi-chevron-down"
-                }}</v-icon>
-              </v-btn>
-            </v-card-actions>
-
-            <v-expand-transition>
+            <!-- <v-expand-transition>
               <div v-show="show">
                 <v-divider></v-divider>
 
@@ -43,15 +32,12 @@
                   way to escape.
                 </v-card-text>
               </div>
-            </v-expand-transition>
+            </v-expand-transition> -->
           </v-card>
         </v-slide-item>
       </v-slide-group>
     </v-sheet>
-    <div align="center" class="text-h4 pb-5 pt-5" id="recommendation">
-      <b>Recommendation</b>
-    </div>
-    <v-row>
+    <!-- <v-row>
       <v-col align="center">
         <div class="text-h6 pb-5">
           <b>Strawberry Leaf scorch</b>
@@ -77,7 +63,7 @@
           </v-col>
         </v-row>
       </v-col>
-    </v-row>
+    </v-row> -->
   </div>
 </template>
 
@@ -100,26 +86,26 @@ export default {
         {
           title: "Collect rainwater",
           description:
-            "Saving water is one of the most important facets of sustainable gardening. The best way to do that is to plant the most water-intensive crops during the rainy season. This could include sweet potatoes,eggplants,cucumbers, bamboo shoots or pumpkins. By planting these at the right time, you'll be able to make use of the rainfall at the right time.",
+            "To ensure your plants get enough water when it's not raining, collect rainwater with water butts rather than wasting clean water from the grid. You can save some of this water for the vegetables you'll be planting in the dryer season, such as tomatoes (pick the most heat-tolerant varieties).",
           image: "/images/tip2.jpeg",
         },
         {
           title: "Use mulch to help water retention during the dry season",
           description:
-            "Saving water is one of the most important facets of sustainable gardening. The best way to do that is to plant the most water-intensive crops during the rainy season. This could include sweet potatoes,eggplants,cucumbers, bamboo shoots or pumpkins. By planting these at the right time, you'll be able to make use of the rainfall at the right time.",
+            "Cover the ground around your plants with mulch it will help retain water in the soil for longer, which is one of the key steps youll want to achieve with sustainable urban gardening. It will also prevent the roots from overheating on hot days and keep your plants healthy. It's important to ensure that the mulch you're using for your sustainable gardening is coming from a sustainable source. Try shredded bark, sand or cocoa bean hulls.",
           image: "/images/tip3.jpeg",
         },
         {
           title:
             "Raise garden beds for better drainage during the rainy season",
           description:
-            "Saving water is one of the most important facets of sustainable gardening. The best way to do that is to plant the most water-intensive crops during the rainy season. This could include sweet potatoes,eggplants,cucumbers, bamboo shoots or pumpkins. By planting these at the right time, you'll be able to make use of the rainfall at the right time.",
+            "In the tropics, you don't just have to deal with not getting enough water  but also with too much of it. One of the simplest ways to prevent your plants from rotting while staying true to the principles of sustainable gardening is to raise the garden beds using rocks, old construction materials or reclaimed wood.",
           image: "/images/tip5.jpeg",
         },
         {
           title: "Use a compost",
           description:
-            "Saving water is one of the most important facets of sustainable gardening. The best way to do that is to plant the most water-intensive crops during the rainy season. This could include sweet potatoes,eggplants,cucumbers, bamboo shoots or pumpkins. By planting these at the right time, you'll be able to make use of the rainfall at the right time.",
+            "This is a tip everyone who's getting into urban gardening should use  composting. You can turn food scraps or plant trimmings into rich, sustainable fertilizer!",
           image: "/images/tip4.jpeg",
         },
       ],

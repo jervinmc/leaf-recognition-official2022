@@ -56,6 +56,7 @@
       </div>
       <v-spacer />
       <div
+        v-if="!$vuetify.breakpoint.xs"
         :class="
           $route.name == 'scanner'
             ? 'px-10 pointer secondary--text'
@@ -66,10 +67,33 @@
         Scanner
       </div>
       <div
+        v-else
+        @click="pushRoute('scanner')"
+         :class="
+          $route.name == 'tips'
+            ? 'px-5 pointer secondary--text'
+            : 'px-5 pointer'
+        "
+      >
+        Scanner
+      </div>
+      <div
+         v-if="!$vuetify.breakpoint.xs"
         :class="
           $route.name == 'tips'
             ? 'px-10 pointer secondary--text'
             : 'px-10 pointer'
+        "
+        @click="pushRoute('tips')"
+      >
+        Growing Tips
+      </div>
+      <div
+       v-else
+        :class="
+          $route.name == 'tips'
+            ? ' pointer secondary--text'
+            : ' pointer'
         "
         @click="pushRoute('tips')"
       >
@@ -152,7 +176,7 @@
          
         </v-card-text>
 
-        <v-card-text class="black--text pt-0 text-h4 secondary--text pa-5">
+        <v-card-text  :class="!$vuetify.breakpoint.xs ? 'black--text pt-0 text-h3 secondary--text pa-5' : 'black--text pt-0 text-h5 secondary--text '">
        A healthy plant is one that adapts best to the situation in which it finds itself. There is no objective measure in this.
        <div>
          ~Monty Don
@@ -161,18 +185,42 @@
 
         <v-divider></v-divider>
         <div align="center">
-           <v-btn
-            v-for="icon in iconFooter"
-            :key="icon"
-            class="mx-4 secondary--text"
+           <!-- <v-btn
             icon
+            @click="locate('instagram')"
           >
-            <v-icon size="24px">
-              {{ icon }}
+            <v-icon size="24px" color="secondary">
+              mdi-instagram
+            </v-icon>
+          </v-btn> -->
+          <v-btn
+            icon
+            @click="locate('facebook')"
+          >
+            <v-icon size="24px" color="secondary">
+              mdi-facebook
             </v-icon>
           </v-btn>
+          <v-btn
+            icon
+            @click="locate('twitter')"
+          >
+            <v-icon size="24px" color="secondary">
+              mdi-twitter
+            </v-icon>
+          </v-btn>
+           <v-btn
+           title="banditbringer28@gmail.com"
+            icon
+     
+          >
+            <v-icon size="24px" color="secondary">
+              mdi-gmail
+            </v-icon>
+          </v-btn>
+
         </div>
-        <div>
+        <!-- <div>
             <v-row class="pt-5">
               <v-col align="end">
                 <v-icon color="secondary">
@@ -183,7 +231,7 @@
                   -banditbringer28@gmail.com
               </v-col>
             </v-row>
-        </div>
+        </div> -->
 
         <v-card-text class="secondary--text">
           <a href="https://www.freepik.com/vectors/claim"
@@ -199,6 +247,11 @@
 <script>
 export default {
   methods: {
+    locate(social){
+      if(social=='facebook') location="https://www.facebook.com/JsnX28?mibextid=ZbWKwL"
+      else if(social=='twitter') location="https://twitter.com/I_Plantofficial?s=07"
+    },
+
     pushRoute(link) {
       window.location.href = `/${link}`;
     },
