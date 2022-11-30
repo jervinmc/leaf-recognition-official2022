@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-row class="px-10" >
+    <v-row class="px-10">
       <v-col
         cols="12"
         md="6"
@@ -10,33 +10,34 @@
         class="px-10 bounce"
         transition="slide-x-transition"
       >
-                 <div :class="!$vuetify.breakpoint.xs ? 'text-h4 secondary--text' : 'text-h6 secondary--text'">
+        <div
+          :class="
+            !$vuetify.breakpoint.xs
+              ? 'text-h4 secondary--text'
+              : 'text-h6 secondary--text'
+          "
+        >
           <b>LET'S ROOT FOR EACH OTHER AND WATCH EACH OTHER GROW.</b>
         </div>
         <div class="my-10 black--text">
           <!-- <v-btn depressed color="secondary" dark @click="scan">
             Upload
           </v-btn> -->
-           <v-btn depressed color="secondary" dark @click="init">
-            Scan
-          </v-btn>
+          <v-btn depressed color="secondary" dark @click="init"> Scan </v-btn>
+          <input type="file" id="fileInput" ref="file" @change="onFileUpload" />
         </div>
       </v-col>
-      <v-col align="center" cols="6">
-        <v-img
-          src="/images/vector.jpg"
-          height="400"
-          width="650"
-          contain
-        ></v-img>
+      <v-col align="center" cols="12" v-if="isUpload">
+        <img  id="imagePreview" :src="urls" style="height: 300px;width:300px" />
       </v-col>
+      <!-- <v-btn @click="predictImage">submit</v-btn> -->
     </v-row>
     <div class="pa-5" align="center">
-       <div id="webcam-container" align="center" ></div>
-    <div id="label-container"></div>
-    <div>
-      {{detected}}
-    </div>
+      <div id="webcam-container" align="center"></div>
+      <div id="label-container"></div>
+      <div>
+        {{ detected }}
+      </div>
     </div>
     <div align="center" v-if="isView">
       <v-btn @click="recommendation" outlined>View Recommendation</v-btn>
@@ -46,7 +47,7 @@
 
 <script type="text/javascript">
 import Vue from "vue";
-import * as tmImage from '@teachablemachine/image'
+import * as tmImage from "@teachablemachine/image";
 
 import { loadScript } from "vue-plugin-load-script";
 // loadScript(
@@ -62,17 +63,19 @@ const URL = "https://teachablemachine.withgoogle.com/models/gEWbo6qt0/";
 
 // Load the image model and setup the webcam
 export default {
-  data(){
-    return{
-      detected:'',
-      isView:false,
-      url:'',
-      modelUrl:'',
-      metadataUrl:'',
-      webcam:'',
-      labelContainer:'',
-      maxPredictions:''
-    }
+  data() {
+    return {
+      isUpload:false,
+      detected: "",
+      isView: false,
+      url: "",
+      urls: "",
+      modelUrl: "",
+      metadataUrl: "",
+      webcam: "",
+      labelContainer: "",
+      maxPredictions: "",
+    };
   },
   created() {
     let ckeditor = document.createElement("script");
@@ -86,14 +89,13 @@ export default {
       "//cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
     );
     document.head.appendChild(ckeditor);
- 
   },
   methods: {
-    recommendation(){
-      location=`/recommendation?disease=${this.detected}`
+    recommendation() {
+      location = `/recommendation?disease=${this.detected}`;
     },
     async init() {
-      alert('Rendering the camera...')
+      alert("Rendering the camera...");
       this.url = "https://teachablemachine.withgoogle.com/models/gEWbo6qt0/";
       this.modelUrl = this.url + "model.json";
       this.metadataUrl = this.url + "metadata.json";
@@ -108,19 +110,21 @@ export default {
 
       const flip = true; // whether to flip the webcam
       this.webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+
       await this.webcam.setup(); // request access to the webcam
       await this.webcam.play();
       window.requestAnimationFrame(this.loop);
-         this.isView = true;
+      this.isView = true;
 
       // append elements to the DOM
-      document.getElementById("webcam-container").appendChild(this.webcam.canvas);
+      document
+        .getElementById("webcam-container")
+        .appendChild(this.webcam.canvas);
       this.labelContainer = document.getElementById("label-container");
       for (let i = 0; i < this.maxPredictions; i++) {
         // and class labels
         this.labelContainer.appendChild(document.createElement("div"));
       }
-
     },
 
     async loop() {
@@ -130,19 +134,61 @@ export default {
     },
 
     async predict() {
-
       //  let model = await tmImage.load(modelURL, metadataURL);
+      console.log(this.webcam.canvas);
       const prediction = await this.model.predict(this.webcam.canvas);
       for (let i = 0; i < this.maxPredictions; i++) {
-        if((prediction[i].probability.toFixed(2)*100)>80){
-           const classPrediction =
-          prediction[i].className;
+        if (prediction[i].probability.toFixed(2) * 100 > 80) {
+          const classPrediction = prediction[i].className;
           // + ": " + (prediction[i].probability.toFixed(2)*100
-        // labelContainer.childNodes[i].innerHTML = classPrediction;
-        
-        this.detected = classPrediction;
+          // labelContainer.childNodes[i].innerHTML = classPrediction;
+
+          this.detected = classPrediction;
         }
       }
+    },
+    async predictImage() {
+      this.url = "https://teachablemachine.withgoogle.com/models/gEWbo6qt0/";
+      this.modelUrl = this.url + "model.json";
+      this.metadataUrl = this.url + "metadata.json";
+      this.model = await tmImage.load(this.modelUrl, this.metadataUrl);
+      this.maxPredictions = this.model.getTotalClasses();
+      var image = document.getElementById('imagePreview')
+      // alert(image)
+      //  let model = await tmImage.load(modelURL, metadataURL);
+      const prediction = await this.model.predict(image,false);
+      for (let i = 0; i < this.maxPredictions; i++) {
+        if (prediction[i].probability.toFixed(2) * 100 > 80) {
+          const classPrediction = prediction[i].className;
+          this.detected = classPrediction;
+          this.recommendation()
+          return;
+        }
+      }
+      alert("No detected!")
+    },
+    onFileUpload(e) {
+      this.file = e;
+
+      e = e.target.files[0];
+     this.urls = window.URL.createObjectURL(e)
+        //  this.predictImage();
+      if (e["name"].length > 100) {
+        alert("255 characters exceeded filename.");
+        return;
+      }
+      try {
+        if (e.size > 16000000) {
+          alert("Only 15mb file can be accepted.");
+          return;
+        }
+      } catch (error) {
+        alert(error);
+        return;
+      }
+      this.predictImage()
+      this.isUpload = true
+   
     },
   },
 };
