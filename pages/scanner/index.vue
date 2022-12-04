@@ -149,7 +149,7 @@ export default {
       const flip = this.$vuetify.breakpoint.xs ? false : true; // whether to flip the webcam
       this.webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
 
-      await this.webcam.setup(); // request access to the webcam
+      await this.webcam.setup({facingMode: "environment"}); // request access to the webcam
       await this.webcam.play();
       window.requestAnimationFrame(this.loop);
       this.isView = true;
