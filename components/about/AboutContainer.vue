@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-16" align="center">
+  <div :class="$vuetify.breakpoint.xs ? 'pa-5' : 'pa-16'" align="center">
             <div   class="text-h4 pa-5">
                 <b>ABOUT</b>
             </div>

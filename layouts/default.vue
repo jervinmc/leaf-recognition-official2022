@@ -218,6 +218,7 @@
               mdi-gmail
             </v-icon>
           </v-btn>
+          iplantphofficial@gmail.com
 
         </div>
         <!-- <div>

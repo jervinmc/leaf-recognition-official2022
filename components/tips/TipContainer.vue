@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-16">
+  <div :class="$vuetify.breakpoint.xs ? 'pa-5' : 'pa-16'">
     <div align="center" class="text-h4 pb-5">
       <b>Growing Tips</b>
     </div>
@@ -11,7 +11,7 @@
         show-arrows
       >
         <v-slide-item v-for="n in entry" :key="n" class="pa-5">
-          <v-card class="mx-5" max-width="344">
+          <v-card max-width="344">
             <v-img :src="n.image" height="200px"></v-img>
 
             <v-card-title> {{ n.title }} </v-card-title>
@@ -37,33 +37,114 @@
         </v-slide-item>
       </v-slide-group>
     </v-sheet>
-    <!-- <v-row>
-      <v-col align="center">
-        <div class="text-h6 pb-5">
-          <b>Strawberry Leaf scorch</b>
-        </div>
+    <div class="py-5">
+      <div>
+        Source Link : <a href="https://www.seedgrocer.com/blogs/gardening-tips/blog3">https://www.seedgrocer.com/blogs/gardening-tips/blog3</a>
+      </div>
+      <div>
+        Beneficiary's additional advice
+      </div>
+    </div>
+    <div class="pt-10 pa-5" >
+     <div align="center" class="text-h5 pb-5">
+      <b> Disease List </b>
+     </div>
+     <v-card class="pa-5" align="center">
         <div>
-          Reference: 
-          <div @click="locate('https://www.gardeningknowhow.com/edible/fruits/strawberry/strawberries-with-leafscorch.htm#:~:text=Scorched%20strawberry%20leaves%20are%20caused,on%20the%20topside%20of%20leaves.')">
-            More details
+      <ul >
+          <div @click="locate('Corn Common Rust')"  class="pointer" >
+            Corn Common Rust
           </div>
-        </div>
-        <v-row>
-          <v-col>
-            <v-card height="200" width="200"> </v-card>
-          </v-col>
-          <v-col>
-            <v-card height="200" width="200"> </v-card>
-          </v-col>
-          <v-col>
-            <v-card height="200" width="200"> </v-card>
-          </v-col>
-          <v-col>
-            <v-card height="200" width="200"> </v-card>
-          </v-col>
-        </v-row>
-      </v-col>
-    </v-row> -->
+
+          <div class="pointer" @click="locate('Corn Northern Leaf Blight')">
+            Corn Northern Leaf Blight
+          </div>
+        
+          <div class="pointer" @click="locate('Grape Black Rot')">
+            Grape Black Rot
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Grape Esca')">
+            Grape Esca
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Grape Leaf Blight')">
+            Grape Leaf Blight
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Peach Bacterial Spot')">
+            Peach Bacterial Spot
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Potato Early Blight')">
+            Potato Early Blight
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Potato Late Blight')">
+            Potato Late Blight
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Strawberry Leaf Scorch')">
+            Strawberry Leaf Scorch
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Squash Powdery Mildrew')">
+            Squash Powdery Mildrew
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Tomato Bacterial Spot')">
+            Tomato Bacterial Spot
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Tomato Early Blight ')">
+           Tomato Early Blight 
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Tomato Late Blight')">
+            Tomato Late Blight
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Tomato Leaf Mold')">
+            Tomato Leaf Mold
+          </div>
+        
+        
+          <div @click="locate('Tomato Mosaic Virus')">
+            Tomato Mosaic Virus
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Tomato Septoria Leaf Spot')">
+           Tomato Septoria Leaf Spot
+          </div>
+        
+        
+          <div class="pointer" @click="locate('Tomato Spider Mites')">
+            Tomato Spider Mites
+          </div>
+
+        
+          <div class="pointer" @click="locate('Tomato Target Spot')">
+            Tomato Target Spot
+          </div>
+          <div @click="locate('Tomato Yellow Leaf Curl virus')">
+            Tomato Yellow Leaf Curl virus
+          </div>
+      </ul>
+     </div>
+     </v-card>
+    </div>
   </div>
 </template>
 
@@ -72,6 +153,11 @@ export default {
   created(){
     if(this.$route.query.disease!=undefined){
      this.$vuetify.goTo('#recommendation')
+    }
+  },
+  methods:{
+    locate(url){
+      location = `/recommendation?disease=${url}`
     }
   },
   data() {
@@ -107,6 +193,18 @@ export default {
           description:
             "This is a tip everyone who's getting into urban gardening should use  composting. You can turn food scraps or plant trimmings into rich, sustainable fertilizer!",
           image: "/images/tip4.jpeg",
+        },
+        {
+          title: "Use high-quality soil",
+          description:
+            "Always make sure to plant on a healthy soil. This will be greatly beneficial to the plant as it will acquire the finest nutrients which will definitely boost its health and ability to produce food. Using low-quality soil will have the opposite effect. It will make plants more vulnerable to diseases and hinder their ability to grow, and also shortens their lifespan.",
+          image: "/images/tips5.jpeg",
+        },
+        {
+          title: "Use pesticides if you see pests infesting your plant leaves",
+          description:
+            "Insects and other form of pests can and will destroy your plants, if not, greatly reduce their ability to produce fruits or vegetables. Use pesticides to deal with pests, as pesticides can be very effective and is harmless to plants.",
+          image: "/images/tips6.jpeg",
         },
       ],
     };

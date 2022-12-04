@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$vuetify.breakpoint.xs ? ' pt-7' : 'pa-16'">
     <v-row class="px-10">
       <v-col
         cols="12"
@@ -24,20 +24,55 @@
             Upload
           </v-btn> -->
           <v-btn depressed color="secondary" dark @click="init"> Scan </v-btn>
-          <input type="file" id="fileInput" ref="file" @change="onFileUpload" />
+          <v-btn depressed color="secondary" @click="$refs.file.click()">
+            Upload
+          </v-btn>
+          <input
+            class="d-none"
+            type="file"
+            id="fileInput"
+            ref="file"
+            @change="onFileUpload"
+          />
         </div>
       </v-col>
+      <v-col align="center" cols="6" v-if="!$vuetify.breakpoint.xs">
+        <v-img
+          src="/images/vector.jpg"
+          height="400"
+          width="650"
+          contain
+        ></v-img>
+      </v-col>
       <v-col align="center" cols="12" v-if="isUpload">
-        <img  id="imagePreview" :src="urls" style="height: 300px;width:300px" />
+        <img
+          id="imagePreview"
+          :src="urls"
+          style="height: 300px; width: 300px"
+        />
+      </v-col>
+      <v-col>
+        <div v-if="isTrigger" align="center">
+          <div align="center" v-if="isLoadedDetection">
+            {{ detectedImage }}
+            <div v-if="detectedImage=='Peach Healthy' || detectedImage=='Corn Healthy' || detectedImage=='Strawberry Healthy' || detectedImage=='Tomato Healthy' || detectedImage=='Grape Healthy' || detectedImage=='Pepper Bell Healthy' || detectedImage=='Potato Healthy' || detectedImage=='Squash Healthy'">
+              This plant is healthy, keep up the good work! Please continue taking good care of your plant.
+            </div>
+          </div>
+          <div v-else align="center">Please wait...</div>
+        </div>
       </v-col>
       <!-- <v-btn @click="predictImage">submit</v-btn> -->
     </v-row>
-    <div class="pa-5" align="center">
+    <div class="pa-5" align="center" v-if="!isTrigger">
       <div id="webcam-container" align="center"></div>
       <div id="label-container"></div>
       <div>
         {{ detected }}
       </div>
+       <div v-if="detectedImage=='Peach Healthy' || detectedImage=='Corn Healthy' || detectedImage=='Strawberry Healthy' || detectedImage=='Tomato Healthy' || detectedImage=='Grape Healthy' || detectedImage=='Pepper Bell Healthy' || detectedImage=='Potato Healthy' || detectedImage=='Squash Healthy'">
+              This plant is healthy, keep up the good work! Please continue taking good care of your plant.
+            </div>
     </div>
     <div align="center" v-if="isView">
       <v-btn @click="recommendation" outlined>View Recommendation</v-btn>
@@ -65,7 +100,10 @@ const URL = "https://teachablemachine.withgoogle.com/models/gEWbo6qt0/";
 export default {
   data() {
     return {
-      isUpload:false,
+      isTrigger: false,
+      isLoadedDetection: false,
+      detectedImage: "",
+      isUpload: false,
       detected: "",
       isView: false,
       url: "",
@@ -108,7 +146,7 @@ export default {
 
       this.maxPredictions = this.model.getTotalClasses();
 
-      const flip = true; // whether to flip the webcam
+      const flip = this.$vuetify.breakpoint.xs ? false : true; // whether to flip the webcam
       this.webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
 
       await this.webcam.setup(); // request access to the webcam
@@ -153,26 +191,29 @@ export default {
       this.metadataUrl = this.url + "metadata.json";
       this.model = await tmImage.load(this.modelUrl, this.metadataUrl);
       this.maxPredictions = this.model.getTotalClasses();
-      var image = document.getElementById('imagePreview')
+      var image = document.getElementById("imagePreview");
       // alert(image)
       //  let model = await tmImage.load(modelURL, metadataURL);
-      const prediction = await this.model.predict(image,false);
+      const prediction = await this.model.predict(image, false);
       for (let i = 0; i < this.maxPredictions; i++) {
         if (prediction[i].probability.toFixed(2) * 100 > 80) {
           const classPrediction = prediction[i].className;
           this.detected = classPrediction;
-          this.recommendation()
+          // this.recommendation()
+          this.detectedImage = classPrediction;
+          this.isLoadedDetection = true;
           return;
         }
       }
-      alert("No detected!")
+      alert("No detected!");
     },
     onFileUpload(e) {
+      this.isTrigger = true;
       this.file = e;
 
       e = e.target.files[0];
-     this.urls = window.URL.createObjectURL(e)
-        //  this.predictImage();
+      this.urls = window.URL.createObjectURL(e);
+      //  this.predictImage();
       if (e["name"].length > 100) {
         alert("255 characters exceeded filename.");
         return;
@@ -186,9 +227,9 @@ export default {
         alert(error);
         return;
       }
-      this.predictImage()
-      this.isUpload = true
-   
+      this.predictImage();
+      this.isView = true;
+      this.isUpload = true;
     },
   },
 };
