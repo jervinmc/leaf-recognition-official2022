@@ -157,7 +157,7 @@ export default {
   },
   methods:{
     locate(url){
-      location = `/recommendation?disease=${url}`
+      window.open(`https://i-plant-app.netlify.app/recommendation?disease=${url}`,'_blank')
     }
   },
   data() {

@@ -1,7 +1,7 @@
 <template>
   <div class="pa-16">
-    <v-dialog v-model="isSelectedImage">
-      <v-img :src="selectedImage" height="600"></v-img>
+    <v-dialog v-model="isSelectedImage" width="600">
+      <v-img :src="selectedImage" height="600" ></v-img>
     </v-dialog>
     <div class="text-h4 pa-5" align="center">
       <b>Recommendation</b>
@@ -40,7 +40,7 @@
           <v-row>
             <v-col v-for="x in images" :key="x">
               <v-card @click="selectImage(x)">
-                <v-img :src="x" height="200"></v-img>
+                <v-img :src="x" height="200" width="300"></v-img>
               </v-card>
             </v-col>
           </v-row>
@@ -286,7 +286,7 @@ export default {
       this.title = "";
       this.description =
         "While there are no completely successful sprays for control of this disease, chemical spray with copper-based bactericide and the antibiotic oxytetracycline have some effect used preventatively.";
-      this.images = ['/images/pepper/1.jpeg','/images/pepper/2.jpeg','/images/pepper/3.jpeg','/images/pepper/4.jpeg'];;
+      this.images = ['/images/pepper/1.jpeg','/images/pepper/2.jpeg','/images/pepper/3.jpeg','/images/pepper/4.jpeg'];
       this.guides[0] =
         "Current chemical control is limited to copper or copper combined with maneb sprays that provide only marginal success thus making the disease very difficult to control once the epidemic is underway.";
       this.guides[1] =
@@ -302,7 +302,7 @@ export default {
       this.title = "";
       this.description =
         "Early blight of potato is caused by the fungal pathogen Alternaria solani. The disease affects leaves, stems and tubers and can reduce yield, tuber size, storability of tubers, quality of fresh-market and processing tubers and marketability of the crop.";
-      this.images = [];
+       this.images = ['/images/potato/1.jpeg','/images/potato/2.jpeg','/images/potato/3.jpeg','/images/potato/4.jpeg'];
       this.guides[0] =
         "Treatment of early blight includes prevention by planting potato varieties that are resistant to the disease; late maturing are more resistant than early maturing varieties.";
       this.guides[1] =
@@ -319,7 +319,7 @@ export default {
       this.title = "";
       this.description =
         "Late blight will first appear as water-soaked spots, usually at the tips or edges of lower leaves where water or dew tends to collect. Under moist, cool conditions, water-soaked spots rapidly enlarge and a broad yellow halo may be seen surrounding the lesion. On the leaf underside, a spore-producing zone of white moldy growth approximately 0.1 - 0.2 inches wide may appear at the border of the lesion. Under continuously wet conditions, the disease progresses rapidly and warm, dry weather will slow or stop disease development. As conditions become moist and cool, disease development resumes. See pictures of late blight on stem and leaves.";
-      this.images = [];
+       this.images = ['/images/potato_late/1.jpeg','/images/potato_late/2.jpeg','/images/potato_late/3.jpeg','/images/potato_late/4.jpeg'];
       this.guides[0] = "Use disease-free seeds and seedlings.";
       this.guides[1] =
         "Remove heavily infected tomato/potato plants from the field.";
@@ -329,12 +329,12 @@ export default {
         "Preventive application of systematic fungicides (metalaxyl, mancozeb, copper-based).";
       this.source = "https://cropwatch.unl.edu/potato/late_blights_description";
     }
-    if (this.$route.query.disease == "Squash Powdery Mildew") {
+    if (this.$route.query.disease == "Squash Powdery Mildrew") {
         this.link='https://www.gardeningknowhow.com/edible/vegetables/squash/powdery-mildew-in-squash.htm'
       this.title = "";
       this.description =
         "The first sign of powdery mildew on squash are small, white, dusty spots on the young leaves. Initially, there will only be a few spots, but it spreads quickly, eventually covering the entire leaf surface. Powdery mildew is most commonly seen on the top of the leaves, but it can also appear on the leaf undersides, the stems, and even on the fruits.";
-      this.images = ['/images/squash/1.jpeg','/images/squash/2.jpeg','/images/squash/3.jpeg','/images/squash/4.jpeg'];
+      this.images = ['/images/squash/1.png','/images/squash/2.jpeg','/images/squash/3.jpeg','/images/squash/4.jpeg'];
       this.guides[0] =
         "Provide good air circulation by spacing squash plants several feet apart.";
       this.guides[1] =
@@ -419,7 +419,7 @@ export default {
       this.title = "";
       this.description =
         "Tomato leaf mold is typically only an issue in greenhouse and high-tunnel tomatoes. The disease is driven by high relative humidity (greater than 85%). Foliage is often the only part of the plant directly infected. Infection will cause infected leaves to wither and die, indirectly affecting yield. In severe cases, blossoms and fruit can also be infected, directly reducing yield. Leaf mold is caused by the fungus Passalora fulva (previously called Fulvia fulva or Cladosporium fulvum).";
-      this.images = [];
+      this.images = ['/images/tomato_mold/1.jpeg','/images/tomato_mold/2.jpeg','/images/tomato_mold/3.jpeg','/images/tomato_mold/4.jpeg'];
       this.guides[0] =
         "Fungicide applications should be repeated according to label instructions. It is important to alternate between different chemical families to avoid the development of pathogen resistance to particular active ingredients.";
       this.guides[1] =
@@ -454,7 +454,7 @@ export default {
       this.title = "";
       this.description =
         "Septoria leaf spot is caused by the fungus Septoria lycopersici. This fungus can attack tomatoes at any stage of development, but symptoms usually first appear on the older, lower leaves and stems when plants are setting fruit. Symptoms usually appear on leaves, but can occur on petioles, stems, and the calyx.";
-      this.images = [];
+      this.images = ['/images/tomato_septoria/1.jpeg','/images/tomato_septoria/2.jpeg','/images/tomato_septoria/3.jpeg','/images/tomato_septoria/4.jpeg'];
       this.guides[0] =
         "Destroying as much of the tomato debris as possible after harvest in the fall";
       this.guides[1] =

@@ -74,9 +74,12 @@
               This plant is healthy, keep up the good work! Please continue taking good care of your plant.
             </div>
     </div>
-    <div align="center" v-if="isView">
+    <div  v-if="!(detectedImage=='Peach Healthy' || detectedImage=='Corn Healthy' || detectedImage=='Strawberry Healthy' || detectedImage=='Tomato Healthy' || detectedImage=='Grape Healthy' || detectedImage=='Pepper Bell Healthy' || detectedImage=='Potato Healthy' || detectedImage=='Squash Healthy')">
+         <div align="center" v-if="isView">
       <v-btn @click="recommendation" outlined>View Recommendation</v-btn>
     </div>
+    </div>
+ 
   </div>
 </template>
 
